@@ -1,20 +1,18 @@
+package orders;
+
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class OrderManagement {
     public static void main(String[] args) {
 
-        String path = "C:\\Users\\prane\\Downloads\\data.txt";
+        String path = args[0];//"C:\Users\prane\Downloads\data.txt";
         List<Orders> ordersList = new ArrayList<>();
         String s;
         try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
@@ -37,7 +35,7 @@ public class OrderManagement {
             }
 
             OrderWriter orderWriter = new OrderWriter();
-            orderWriter.writeToFile(ordersList);
+            orderWriter.writeToFile(ordersList, args[1]);
 
         } catch (IOException e) {
             e.printStackTrace();

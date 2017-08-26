@@ -1,12 +1,11 @@
+package orders;
+
 import lombok.Data;
 
-import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
-public class Orders implements Serializable {
+public class Orders implements Comparable<Orders> {
     private String order;
     private LocalDateTime date;
 
@@ -16,5 +15,11 @@ public class Orders implements Serializable {
                 "order='" + order + '\'' +
                 ", date=" + date +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Orders o) {
+
+        return getDate().compareTo(o.getDate());
     }
 }
