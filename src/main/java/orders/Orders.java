@@ -9,17 +9,17 @@ public class Orders implements Comparable<Orders> {
     private String order;
     private LocalDateTime date;
 
-    @Override
-    public String toString() {
-        return "Orders{" +
-                "order='" + order + '\'' +
-                ", date=" + date +
-                '}';
+    public Orders() {
     }
+
+    public Orders(String order, LocalDateTime date) {
+        this.order = order;
+        this.date = date;
+    }
+
 
     @Override
     public int compareTo(Orders o) {
-
         return getDate().compareTo(o.getDate());
     }
 }

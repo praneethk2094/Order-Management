@@ -19,12 +19,10 @@ public class OrderWriter {
             Collections.sort(ordersList);
             System.out.println("about to write");
             for (Orders orders : ordersList) {
-                System.out.println(orders);
                 String format = "%-20s %-20s %n";
                 String print = String.format(format, orders.getOrder(), orders.getDate().format(formatter));
                 output.write(print);
             }
-
 
         } catch (IOException e) {
             e.printStackTrace();
