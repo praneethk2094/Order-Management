@@ -1,44 +1,44 @@
 package orders;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import jdk.nashorn.internal.ir.WhileNode;
+
+import java.io.*;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class OrderManagement {
     public static void main(String[] args) {
 
-        String path = args[0];//"C:\Users\prane\Downloads\data.txt";
+        // String path = args[0];//"C:\Users\prane\Downloads\data.txt";
+        // String outputPath = args[1];
         List<Orders> ordersList = new ArrayList<>();
-        String s;
-        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
-            reader.readLine();
-            while ((s = reader.readLine()) != null) {
-                String[] split = s.split("\t\t");
-                if (split.length == 2) {
-                    Orders order = new Orders();
+        String s = "C:\\Users\\prane\\Downloads\\data.txt";
+        String s2 = "C:\\Users\\prane\\Downloads\\data2.txt";
+
+        try (Scanner sc = new Scanner(new File(s))) {
+            List<Orders> list = new ArrayList<>();
+            sc.next();
+            sc.next();
+            while (sc.hasNext()) {
+                Orders order = new Orders();
+                order.setOrder(sc.next());
                     LocalDateTime date =
-                            Instant.ofEpochMilli(Long.parseLong(split[1]))
+                            Instant.ofEpochMilli(Long.parseLong(sc.next()))
                                     .atZone(ZoneId.systemDefault())
                                     .toLocalDateTime();
-
                     order.setDate(date);
-                    order.setOrder(split[0]);
-                    ordersList.add(order);
-                    System.out.println(order);
-                }
-
+                list.add(order);
             }
-
+            list.forEach(System.out::println);
             OrderWriter orderWriter = new OrderWriter();
-            orderWriter.writeToFile(ordersList, args[1]);
-
-        } catch (IOException e) {
+            orderWriter.writeToFile(list, s2);
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
     }
 }

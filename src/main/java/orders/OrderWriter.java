@@ -7,7 +7,6 @@ import java.util.List;
 
 public class OrderWriter {
     public void writeToFile(List<Orders> ordersList, String path) {
-        //  String path = "C:\\Users\\prane\\Downloads\\data2.txt";
 
         File file = new File(path);
         try (FileOutputStream fop = new FileOutputStream(file);
@@ -16,12 +15,14 @@ public class OrderWriter {
                 file.createNewFile();
             }
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-            output.write("Orders\t\t\tTime" + System.lineSeparator());
+            output.write(String.format("%-20s %-20s %n", "Orders", "Time"));
             Collections.sort(ordersList);
+            System.out.println("about to write");
             for (Orders orders : ordersList) {
-                String print = orders.getOrder() + "\t\t" + orders.getDate().format(formatter) + System.lineSeparator();
+                System.out.println(orders);
+                String format = "%-20s %-20s %n";
+                String print = String.format(format, orders.getOrder(), orders.getDate().format(formatter));
                 output.write(print);
-
             }
 
 
